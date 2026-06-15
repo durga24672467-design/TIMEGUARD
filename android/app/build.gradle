@@ -102,6 +102,15 @@ android {
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    kotlinOptions {
+        jvmTarget = '17'
+    }
 }
 
 dependencies {
@@ -114,6 +123,10 @@ dependencies {
     } else {
         implementation jscFlavor
     }
+    
+    // Required for react-native-geolocation-service to use Google Play Services
+    // Must be <= 21.0.1 to avoid SettingsClient interface crash
+    implementation 'com.google.android.gms:play-services-location:21.0.1'
 }
 
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
